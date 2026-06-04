@@ -38,6 +38,28 @@ def tampilkan_semua():
     print("-------------------------------------------------------------------")
     print("Total peminjam: " + str(len(nama_peminjam)) + " orang")
 
+def hapus_peminjam():
+    print("\n--- HAPUS DATA PEMINJAM ---")
+    if len(nama_peminjam) == 0:
+        print("Belum ada data!")
+        return
+    tampilkan_semua()
+    nomor = int(input("Pilih nomor peminjam yang ingin dihapus: ")) - 1
+
+    if nomor < 0 or nomor >= len(nama_peminjam):
+        print("Nomor tidak valid!")
+        return
+    
+    nama_dihapus = nama_peminjam[nomor]
+
+    nama_peminjam.pop(nomor)
+    jumlah_pinjaman.pop(nomor)
+    tenor_pinjaman.pop(nomor)
+    jenis_bunga.pop(nomor)
+    status_pinjaman.pop(nomor)
+
+    print("Data " + nama_dihapus + " berhasil dihapus!")
+
 def menu_utama():
     while True:
         print("\n========================================")   
