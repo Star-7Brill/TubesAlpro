@@ -7,7 +7,7 @@ jenis_bunga     = []
 status_pinjaman = []
 
 def tambah_peminjam():
-    print("\n--- TAMBAH DATA PEMINJAM ---")     
+    print("\n--- TAMBAH DATA PEMINJAM ---")      
 
     nama     = input("Nama peminjam        : ")
     pinjaman = float(input("Jumlah pinjaman (Rp) : "))
@@ -29,7 +29,7 @@ def tampilkan_semua():
         print("Belum ada data peminjam.")
         return
 
-    print("No  Nama                 Pinjaman (Rp)    Tenor   Bunga      Status")
+    print("No  Nama                 Pinjaman (Rp)    Tenor   Bunga     Status")
     print("-------------------------------------------------------------------")  
 
     for i in range(len(nama_peminjam)):
@@ -60,6 +60,25 @@ def hapus_peminjam():
 
     print("Data " + nama_dihapus + " berhasil dihapus!")
 
+# FITUR UPDATE DATA
+def update_peminjam():
+    print("\n--- UPDATE DATA PEMINJAM ---")
+    if len(nama_peminjam) == 0:
+        print("Belum ada data!")
+        return
+    tampilkan_semua()
+    nomor = int(input("Pilih nomor peminjam yang ingin diupdate: ")) - 1
+
+    if nomor < 0 or nomor >= len(nama_peminjam):
+        print("Nomor tidak valid!")
+        return
+
+    nama_peminjam[nomor] = input("Nama baru: ")
+    jumlah_pinjaman[nomor] = float(input("Jumlah pinjaman baru (Rp): "))
+    tenor_pinjaman[nomor] = int(input("Tenor baru (bulan): "))
+    jenis_bunga[nomor] = input("Jenis bunga baru (tetap/variabel): ")
+    print("Data berhasil diupdate!")
+
 def menu_utama():
     while True:
         print("\n========================================")   
@@ -67,6 +86,9 @@ def menu_utama():
         print("========================================")
         print("1. Tambah Data Peminjam")
         print("2. Lihat Daftar Peminjam")
+        print("3. Update Data Peminjam")
+        print("4. Hapus Data Peminjam")
+        print("5. Hitung Cicilan")
         print("0. Keluar")
         print("========================================")
 
@@ -76,12 +98,17 @@ def menu_utama():
             tambah_peminjam()
         elif pilihan == "2":
             tampilkan_semua()
+        elif pilihan == "3":
+            update_peminjam()
+        elif pilihan == "4":
+            hapus_peminjam()
+        elif pilihan == "5":
+            hitung_cicilan()
         elif pilihan == "0":
             print("Terima kasih, program selesai.")
             break
         else:
             print("Pilihan tidak tersedia, coba lagi.")
-
 
 def hitung_cicilan():
     print("\n--- HITUNG CICILAN ---")
@@ -119,5 +146,4 @@ def hitung_cicilan():
     print("Total Bunga        : Rp", total_bunga)
     print("Total Pembayaran   : Rp", total_bayar)
     print("Cicilan Per Bulan  : Rp", round(cicilan_per_bulan, 2))
-menu_utama()
-hitung_cicilan()
+
