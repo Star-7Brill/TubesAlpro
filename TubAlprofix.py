@@ -60,7 +60,7 @@ def hapus_peminjam():
 
     print("Data " + nama_dihapus + " berhasil dihapus!")
 
-# FITUR UPDATE DATA
+
 def update_peminjam():
     print("\n--- UPDATE DATA PEMINJAM ---")
     if len(nama_peminjam) == 0:
@@ -79,36 +79,7 @@ def update_peminjam():
     jenis_bunga[nomor] = input("Jenis bunga baru (tetap/variabel): ")
     print("Data berhasil diupdate!")
 
-def menu_utama():
-    while True:
-        print("\n========================================")   
-        print("   SIMULASI PINJAMAN DAN KREDIT BANK")
-        print("========================================")
-        print("1. Tambah Data Peminjam")
-        print("2. Lihat Daftar Peminjam")
-        print("3. Update Data Peminjam")
-        print("4. Hapus Data Peminjam")
-        print("5. Hitung Cicilan")
-        print("0. Keluar")
-        print("========================================")
 
-        pilihan = input("Pilih menu: ")
-
-        if pilihan == "1":
-            tambah_peminjam()
-        elif pilihan == "2":
-            tampilkan_semua()
-        elif pilihan == "3":
-            update_peminjam()
-        elif pilihan == "4":
-            hapus_peminjam()
-        elif pilihan == "5":
-            hitung_cicilan()
-        elif pilihan == "0":
-            print("Terima kasih, program selesai.")
-            break
-        else:
-            print("Pilihan tidak tersedia, coba lagi.")
 
 def hitung_cicilan():
     print("\n--- HITUNG CICILAN ---")
@@ -129,13 +100,13 @@ def hitung_cicilan():
     tenor = tenor_pinjaman[nomor]
     bunga = jenis_bunga[nomor]
 
-    # menentukan bunga
+    
     if bunga == "tetap":
         persen_bunga = 0.05
     else:
         persen_bunga = 0.08
 
-    # perhitungan
+
     total_bunga = pinjaman * persen_bunga
     total_bayar = pinjaman + total_bunga
     cicilan_per_bulan = total_bayar / tenor
@@ -147,3 +118,98 @@ def hitung_cicilan():
     print("Total Pembayaran   : Rp", total_bayar)
     print("Cicilan Per Bulan  : Rp", round(cicilan_per_bulan, 2))
 
+def urutkan_selection_sort():
+    print("\n--- SELECTION SORT (Berdasarkan Pinjaman Terkecil) ---")
+    n = len(nama_peminjam)
+    if n == 0:
+        print("Belum ada data untuk diurutkan.")
+        return
+
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if jumlah_pinjaman[j] < jumlah_pinjaman[min_idx]:
+                min_idx = j
+        
+        
+        jumlah_pinjaman[i], jumlah_pinjaman[min_idx] = jumlah_pinjaman[min_idx], jumlah_pinjaman[i]
+        nama_peminjam[i], nama_peminjam[min_idx]     = nama_peminjam[min_idx], nama_peminjam[i]
+        tenor_pinjaman[i], tenor_pinjaman[min_idx]   = tenor_pinjaman[min_idx], tenor_pinjaman[i]
+        jenis_bunga[i], jenis_bunga[min_idx]         = jenis_bunga[min_idx], jenis_bunga[i]
+        status_pinjaman[i], status_pinjaman[min_idx] = status_pinjaman[min_idx], status_pinjaman[i]
+
+    print("Data berhasil diurutkan dengan Selection Sort!")
+    tampilkan_semua()
+
+def urutkan_insertion_sort():
+    print("\n--- INSERTION SORT (Berdasarkan Pinjaman Terkecil) ---")
+    n = len(nama_peminjam)
+    if n == 0:
+        print("Belum ada data untuk diurutkan.")
+        return
+
+    for i in range(1, n):
+        key_pinjaman = jumlah_pinjaman[i]
+        key_nama     = nama_peminjam[i]
+        key_tenor    = tenor_pinjaman[i]
+        key_bunga    = jenis_bunga[i]
+        key_status   = status_pinjaman[i]
+        
+        j = i - 1
+        while j >= 0 and key_pinjaman < jumlah_pinjaman[j]:
+            jumlah_pinjaman[j + 1] = jumlah_pinjaman[j]
+            nama_peminjam[j + 1]   = nama_peminjam[j]
+            tenor_pinjaman[j + 1]  = tenor_pinjaman[j]
+            jenis_bunga[j + 1]     = jenis_bunga[j]
+            status_pinjaman[j + 1] = status_pinjaman[j]
+            j -= 1
+            
+        jumlah_pinjaman[j + 1] = key_pinjaman
+        nama_peminjam[j + 1]   = key_nama
+        tenor_pinjaman[j + 1]  = key_tenor
+        jenis_bunga[j + 1]     = key_bunga
+        status_pinjaman[j + 1] = key_status
+
+    print("Data berhasil diurutkan dengan Insertion Sort!")
+    tampilkan_semua()
+
+
+def menu_utama_baru():
+    while True:
+        print("\n========================================")   
+        print("   SIMULASI PINJAMAN DAN KREDIT BANK")
+        print("========================================")
+        print("1. Tambah Data Peminjam")
+        print("2. Lihat Daftar Peminjam")
+        print("3. Update Data Peminjam")
+        print("4. Hapus Data Peminjam")
+        print("5. Hitung Cicilan")
+        print("6. Urutkan Data (Selection Sort)")
+        print("7. Urutkan Data (Insertion Sort)")
+        print("0. Keluar")
+        print("========================================")
+
+        pilihan = input("Pilih menu: ")
+
+        if pilihan == "1":
+            tambah_peminjam()
+        elif pilihan == "2":
+            tampilkan_semua()
+        elif pilihan == "3":
+            update_peminjam()
+        elif pilihan == "4":
+            hapus_peminjam()
+        elif pilihan == "5":
+            hitung_cicilan()
+        elif pilihan == "6":
+            urutkan_selection_sort()
+        elif pilihan == "7":
+            urutkan_insertion_sort()
+        elif pilihan == "0":
+            print("Terima kasih, program selesai.")
+            break
+        else:
+            print("Pilihan tidak tersedia, coba lagi.")
+
+# Menjalankan menu baru yang sudah terintegrasi fitur sorting
+menu_utama_baru()
