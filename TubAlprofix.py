@@ -119,60 +119,211 @@ def hitung_cicilan():
     print("Cicilan Per Bulan  : Rp", round(cicilan_per_bulan, 2))
 
 def urutkan_selection_sort():
-    print("\n--- SELECTION SORT (Berdasarkan Pinjaman Terkecil) ---")
-    n = len(nama_peminjam)
-    if n == 0:
+    print("\n--- SELECTION SORT ---")
+    if len(nama_peminjam) == 0:
         print("Belum ada data untuk diurutkan.")
         return
+
+    print("Urutkan berdasarkan:")
+    print("1. Nama Peminjam")
+    print("2. Jumlah Pinjaman")
+    print("3. Tenor")
+    print("4. Jenis Bunga")
+    print("5. Status")
+    kriteria = input("Pilih kriteria: ")
+
+    print("Arah urutan:")
+    print("1. Ascending (A-Z / terkecil ke terbesar)")
+    print("2. Descending (Z-A / terbesar ke terkecil)")
+    arah = input("Pilih arah: ")
+
+    n = len(nama_peminjam)
 
     for i in range(n):
-        min_idx = i
-        for j in range(i + 1, n):
-            if jumlah_pinjaman[j] < jumlah_pinjaman[min_idx]:
-                min_idx = j
-        
-        
-        jumlah_pinjaman[i], jumlah_pinjaman[min_idx] = jumlah_pinjaman[min_idx], jumlah_pinjaman[i]
-        nama_peminjam[i], nama_peminjam[min_idx]     = nama_peminjam[min_idx], nama_peminjam[i]
-        tenor_pinjaman[i], tenor_pinjaman[min_idx]   = tenor_pinjaman[min_idx], tenor_pinjaman[i]
-        jenis_bunga[i], jenis_bunga[min_idx]         = jenis_bunga[min_idx], jenis_bunga[i]
-        status_pinjaman[i], status_pinjaman[min_idx] = status_pinjaman[min_idx], status_pinjaman[i]
+        idx_terpilih = i
 
-    print("Data berhasil diurutkan dengan Selection Sort!")
+        for j in range(i + 1, n):
+            if kriteria == "1":
+                nilai_j        = nama_peminjam[j].lower()
+                nilai_terpilih = nama_peminjam[idx_terpilih].lower()
+            elif kriteria == "2":
+                nilai_j        = jumlah_pinjaman[j]
+                nilai_terpilih = jumlah_pinjaman[idx_terpilih]
+            elif kriteria == "3":
+                nilai_j        = tenor_pinjaman[j]
+                nilai_terpilih = tenor_pinjaman[idx_terpilih]
+            elif kriteria == "4":
+                nilai_j        = jenis_bunga[j].lower()
+                nilai_terpilih = jenis_bunga[idx_terpilih].lower()
+            elif kriteria == "5":
+                nilai_j        = status_pinjaman[j].lower()
+                nilai_terpilih = status_pinjaman[idx_terpilih].lower()
+            else:
+                print("Kriteria tidak valid.")
+                return
+
+            if arah == "1":
+                if nilai_j < nilai_terpilih:
+                    idx_terpilih = j
+            else:
+                if nilai_j > nilai_terpilih:
+                    idx_terpilih = j
+
+        nama_peminjam[i],    nama_peminjam[idx_terpilih]   = nama_peminjam[idx_terpilih],   nama_peminjam[i]
+        jumlah_pinjaman[i],  jumlah_pinjaman[idx_terpilih] = jumlah_pinjaman[idx_terpilih], jumlah_pinjaman[i]
+        tenor_pinjaman[i],   tenor_pinjaman[idx_terpilih]  = tenor_pinjaman[idx_terpilih],  tenor_pinjaman[i]
+        jenis_bunga[i],      jenis_bunga[idx_terpilih]     = jenis_bunga[idx_terpilih],     jenis_bunga[i]
+        status_pinjaman[i],  status_pinjaman[idx_terpilih] = status_pinjaman[idx_terpilih], status_pinjaman[i]
+
+    print("Data berhasil diurutkan!")
     tampilkan_semua()
 
+
 def urutkan_insertion_sort():
-    print("\n--- INSERTION SORT (Berdasarkan Pinjaman Terkecil) ---")
-    n = len(nama_peminjam)
-    if n == 0:
+    print("\n--- INSERTION SORT ---")
+    if len(nama_peminjam) == 0:
         print("Belum ada data untuk diurutkan.")
         return
 
-    for i in range(1, n):
-        key_pinjaman = jumlah_pinjaman[i]
-        key_nama     = nama_peminjam[i]
-        key_tenor    = tenor_pinjaman[i]
-        key_bunga    = jenis_bunga[i]
-        key_status   = status_pinjaman[i]
-        
-        j = i - 1
-        while j >= 0 and key_pinjaman < jumlah_pinjaman[j]:
-            jumlah_pinjaman[j + 1] = jumlah_pinjaman[j]
-            nama_peminjam[j + 1]   = nama_peminjam[j]
-            tenor_pinjaman[j + 1]  = tenor_pinjaman[j]
-            jenis_bunga[j + 1]     = jenis_bunga[j]
-            status_pinjaman[j + 1] = status_pinjaman[j]
-            j -= 1
-            
-        jumlah_pinjaman[j + 1] = key_pinjaman
-        nama_peminjam[j + 1]   = key_nama
-        tenor_pinjaman[j + 1]  = key_tenor
-        jenis_bunga[j + 1]     = key_bunga
-        status_pinjaman[j + 1] = key_status
+    print("Urutkan berdasarkan:")
+    print("1. Nama Peminjam")
+    print("2. Jumlah Pinjaman")
+    print("3. Tenor")
+    print("4. Jenis Bunga")
+    print("5. Status")
+    kriteria = input("Pilih kriteria: ")
 
-    print("Data berhasil diurutkan dengan Insertion Sort!")
+    print("Arah urutan:")
+    print("1. Ascending (A-Z / terkecil ke terbesar)")
+    print("2. Descending (Z-A / terbesar ke terkecil)")
+    arah = input("Pilih arah: ")
+
+    n = len(nama_peminjam)
+
+    for i in range(1, n):
+        kunci_nama     = nama_peminjam[i]
+        kunci_pinjaman = jumlah_pinjaman[i]
+        kunci_tenor    = tenor_pinjaman[i]
+        kunci_bunga    = jenis_bunga[i]
+        kunci_status   = status_pinjaman[i]
+
+        if kriteria == "1":
+            kunci_nilai = kunci_nama.lower()
+        elif kriteria == "2":
+            kunci_nilai = kunci_pinjaman
+        elif kriteria == "3":
+            kunci_nilai = kunci_tenor
+        elif kriteria == "4":
+            kunci_nilai = kunci_bunga.lower()
+        elif kriteria == "5":
+            kunci_nilai = kunci_status.lower()
+        else:
+            print("Kriteria tidak valid.")
+            return
+
+        j = i - 1
+
+        while j >= 0:
+            if kriteria == "1":
+                nilai_j = nama_peminjam[j].lower()
+            elif kriteria == "2":
+                nilai_j = jumlah_pinjaman[j]
+            elif kriteria == "3":
+                nilai_j = tenor_pinjaman[j]
+            elif kriteria == "4":
+                nilai_j = jenis_bunga[j].lower()
+            elif kriteria == "5":
+                nilai_j = status_pinjaman[j].lower()
+
+            if arah == "1":
+                harus_geser = nilai_j > kunci_nilai
+            else:
+                harus_geser = nilai_j < kunci_nilai
+
+            if harus_geser:
+                nama_peminjam[j + 1]   = nama_peminjam[j]
+                jumlah_pinjaman[j + 1] = jumlah_pinjaman[j]
+                tenor_pinjaman[j + 1]  = tenor_pinjaman[j]
+                jenis_bunga[j + 1]     = jenis_bunga[j]
+                status_pinjaman[j + 1] = status_pinjaman[j]
+                j -= 1
+            else:
+                break
+
+        nama_peminjam[j + 1]   = kunci_nama
+        jumlah_pinjaman[j + 1] = kunci_pinjaman
+        tenor_pinjaman[j + 1]  = kunci_tenor
+        jenis_bunga[j + 1]     = kunci_bunga
+        status_pinjaman[j + 1] = kunci_status
+
+    print("Data berhasil diurutkan!")
     tampilkan_semua()
 
+def sequential_search():
+    print("\n--- SEQUENTIAL SEARCH ---")
+    if len(nama_peminjam) == 0:
+        print("Belum ada data.")
+        return
+
+    keyword = input("Masukkan nama yang dicari: ").lower()
+    hasil   = []
+
+    for i in range(len(nama_peminjam)):
+        if keyword in nama_peminjam[i].lower():
+            hasil.append(i)
+
+    if len(hasil) == 0:
+        print("Data tidak ditemukan.")
+    else:
+        print("Data ditemukan:")
+        for i in hasil:
+            print(str(i + 1) + ". " + nama_peminjam[i] +
+                  " - Rp" + str(jumlah_pinjaman[i]) +
+                  " - " + str(tenor_pinjaman[i]) + " bln" +
+                  " - " + status_pinjaman[i])
+
+def binary_search():
+    print("\n--- BINARY SEARCH ---")
+    if len(nama_peminjam) == 0:
+        print("Belum ada data.")
+        return
+
+    # buat salinan indeks terurut berdasarkan nama
+    indeks_urut = list(range(len(nama_peminjam)))
+    for i in range(1, len(indeks_urut)):
+        kunci = indeks_urut[i]
+        j = i - 1
+        while j >= 0 and nama_peminjam[indeks_urut[j]].lower() > nama_peminjam[kunci].lower():
+            indeks_urut[j + 1] = indeks_urut[j]
+            j -= 1
+        indeks_urut[j + 1] = kunci
+
+    keyword = input("Masukkan nama yang dicari (harus tepat): ").lower()
+
+    kiri   = 0
+    kanan  = len(indeks_urut) - 1
+    ketemu = False
+
+    while kiri <= kanan:
+        tengah   = (kiri + kanan) // 2
+        idx      = indeks_urut[tengah]
+        nama_cek = nama_peminjam[idx].lower()
+
+        if nama_cek == keyword:
+            print("Data ditemukan:")
+            print("- Nama    :", nama_peminjam[idx])
+            print("- Pinjaman: Rp", jumlah_pinjaman[idx])
+            print("- Tenor   :", tenor_pinjaman[idx], "bulan")
+            print("- Status  :", status_pinjaman[idx])
+            ketemu = True
+            break
+        elif nama_cek < keyword:
+            kiri = tengah + 1
+        else:
+            kanan = tengah - 1
+
+    if not ketemu:
+        print("Data tidak ditemukan.")
 
 def menu_utama_baru():
     while True:
@@ -186,6 +337,8 @@ def menu_utama_baru():
         print("5. Hitung Cicilan")
         print("6. Urutkan Data (Selection Sort)")
         print("7. Urutkan Data (Insertion Sort)")
+        print("8. Cari Peminjam (Sequential Search)")
+        print("9. Cari Peminjam (Binary Search)")
         print("0. Keluar")
         print("========================================")
 
@@ -205,6 +358,10 @@ def menu_utama_baru():
             urutkan_selection_sort()
         elif pilihan == "7":
             urutkan_insertion_sort()
+        elif pilihan == "8":
+            sequential_search()
+        elif pilihan == "9":
+            binary_search()
         elif pilihan == "0":
             print("Terima kasih, program selesai.")
             break
