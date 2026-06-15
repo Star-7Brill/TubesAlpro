@@ -13,12 +13,13 @@ def tambah_peminjam():
     pinjaman = float(input("Jumlah pinjaman (Rp) : "))
     tenor    = int(input("Tenor (bulan)        : "))
     bunga    = input("Jenis bunga (tetap/variabel): ")
+    status   = input("Status peminjaman (cicilan/lunas): ")
 
     nama_peminjam.append(nama)
     jumlah_pinjaman.append(pinjaman)
     tenor_pinjaman.append(tenor)
     jenis_bunga.append(bunga)
-    status_pinjaman.append("cicilan")
+    status_pinjaman.append(status)
 
     print("Data " + nama + " berhasil ditambahkan!")
 
