@@ -78,6 +78,7 @@ def update_peminjam():
     jumlah_pinjaman[nomor] = float(input("Jumlah pinjaman baru (Rp): "))
     tenor_pinjaman[nomor] = int(input("Tenor baru (bulan): "))
     jenis_bunga[nomor] = input("Jenis bunga baru (tetap/variabel): ")
+    status_pinjaman[nomor] = input("Status peminjaman(cicilan/lunas): ")
     print("Data berhasil diupdate!")
 
 
